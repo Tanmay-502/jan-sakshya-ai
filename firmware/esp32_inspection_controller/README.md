@@ -1,6 +1,6 @@
 # ESP32 Inspection Controller
 
-This firmware is an initial scaffold for the JAN-SAKSHYA AI field inspection controller. It is intended for bench testing and requires validation with the exact ESP32 board and buzzer.
+This firmware is an initial scaffold for the JAN-SAKSHYA AI field inspection controller. It has been committed as starter code; physical wiring, compile/upload and device-to-server behavior have **not** yet been verified on the team's hardware.
 
 ## Controls
 
@@ -11,9 +11,17 @@ This firmware is an initial scaffold for the JAN-SAKSHYA AI field inspection con
 
 Buttons use internal pull-ups and connect to ground when pressed. Confirm the selected board pinout before wiring.
 
+## Software dependencies
+
+- Arduino IDE with an appropriate ESP32 board package
+- ArduinoJson library (for JSON event payloads)
+- WiFi and HTTPClient libraries included with the ESP32 Arduino core
+
 ## Configure before uploading
 
 Open `esp32_inspection_controller.ino` in Arduino IDE and replace the Wi-Fi, API URL, device-key and demo complaint placeholders with values for your test environment. Do not commit real credentials. Use only a test network and simulated complaint IDs.
+
+The API URL must point to the FastAPI host reachable from the ESP32 on the local network, and `X-Device-Key` must match the backend's `DEVICE_API_KEY`. The current sketch does not implement an offline queue: if Wi-Fi is unavailable, it prints a message and does not retain the event for later delivery.
 
 ## Important limitations
 
